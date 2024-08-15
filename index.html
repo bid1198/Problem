@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem</title>
+        <!--
+MIT License
+Copyright ©2024 | Bangkit I. D.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px white;
+            font-size: 18px;
+        }
+        #toggleButton {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #infoButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+<table>
+    <tr>
+        <td id="cell-A1-1">p</td>
+        <td id="cell-A1-2">r</td>
+        <td id="cell-A1-3">o</td>
+        <td id="cell-A1-4">b</td>
+    </tr>
+    <tr>
+        <td id="cell-A2-1">r</td>
+        <td id="cell-A2-2"></td>
+        <td id="cell-A2-3"></td>
+        <td id="cell-A2-4">l</td>
+    </tr>
+    <tr>
+        <td id="cell-A3-1">o</td>
+        <td id="cell-A3-2"></td>
+        <td id="cell-A3-3"></td>
+        <td id="cell-A3-4">e</td>
+    </tr>
+    <tr>
+        <td id="cell-A4-1">b</td>
+        <td id="cell-A4-2">l</td>
+        <td id="cell-A4-3">e</td>
+        <td id="cell-A4-4">m</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-B1-1">p</td>
+        <td id="cell-B1-2">r</td>
+        <td id="cell-B1-3">o</td>
+        <td id="cell-B1-4">b</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-B2-1">r</td>
+        <td id="cell-B2-2"></td>
+        <td id="cell-B2-3"></td>
+        <td id="cell-B2-4"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-B3-1">o</td>
+        <td id="cell-B3-2"></td>
+        <td id="cell-B3-3"></td>
+        <td id="cell-B3-4">e</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-B4-1">b</td> 
+        <td id="cell-B4-2"></td>
+        <td id="cell-B4-3">e</td>
+        <td id="cell-B4-4"></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-C1-1"></td>
+        <td id="cell-C1-2">r</td>
+        <td id="cell-C1-3">o</td>
+        <td id="cell-C1-4"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-C2-1">r</td>
+        <td id="cell-C2-2"></td>
+        <td id="cell-C2-3"></td>
+        <td id="cell-C2-4">l</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-C3-1">o</td>
+        <td id="cell-C3-2"></td>
+        <td id="cell-C3-3"></td>
+        <td id="cell-C3-4">e</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-C4-1"></td>
+        <td id="cell-C4-2">l</td>
+        <td id="cell-C4-3">e</td>
+        <td id="cell-C4-4"></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-D1-1">p</td>
+        <td id="cell-D1-2"></td>
+        <td id="cell-D1-3">o</td>
+        <td id="cell-D1-4"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-D2-1"></td>
+        <td id="cell-D2-2"></td>
+        <td id="cell-D2-3"></td>
+        <td id="cell-D2-4">l</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-D3-1">o</td>
+        <td id="cell-D3-2"></td>
+        <td id="cell-D3-3"></td>
+        <td id="cell-D3-4">e</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td id="cell-D4-1"></td>
+        <td id="cell-D4-2">l</td>
+        <td id="cell-D4-3">e</td>
+        <td id="cell-D4-4"></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td id="cell-E1-1">p</td>
+        <td id="cell-E1-2"></td>
+        <td id="cell-E1-3">o</td>
+        <td id="cell-E1-4"></td>
+    </tr>
+    <tr>
+        <td id="cell-E2-1"></td>
+        <td id="cell-E2-2"></td>
+        <td id="cell-E2-3"></td>
+        <td id="cell-E2-4"></td>
+    </tr>
+    <tr>
+        <td id="cell-E3-1">o</td>
+        <td id="cell-E3-2"></td>
+        <td id="cell-E3-3"></td>
+        <td id="cell-E3-4">e</td>
+    </tr>
+    <tr>
+        <td id="cell-E4-1"></td>
+        <td id="cell-E4-2"></td>
+        <td id="cell-E4-3">e</td>
+        <td id="cell-E4-4">m</td>
+    </tr>
+</table>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        manusia berusaha mengejar cita<br>kemudian dirinya lupa bahwa<br>diam-diam waktu menyuguhkannya
+    </div>
+</div>
+
+<button id="toggleButton" onclick="toggleAnimation()">Stop</button>
+<button id="infoButton" onclick="showInfoModal()">?</button>
+
+<div id="infoModal" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 5px; border: 2px solid black; border-radius: 5px; z-index: 1000;">
+    <p>apa 'kan didapat?<br>
+       kala semua jadi tepat<br>
+    </p>
+    <button onclick="closeInfoModal()">Close</button>
+</div>
+<div id="modalBackdrop" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+
+<script>
+    let intervalA, intervalB, intervalC, intervalD, intervalE;
+    let isRunning = true;
+
+    const filledCellsA = [
+        "cell-A1-1", "cell-A1-2", "cell-A1-3", "cell-A1-4",
+        "cell-A2-4", "cell-A3-4", "cell-A4-4",
+        "cell-A4-3", "cell-A4-2", "cell-A4-1",
+        "cell-A3-1", "cell-A2-1"
+    ];
+
+    const filledCellsB = [
+        "cell-B1-1", "cell-B1-2", "cell-B1-3", "cell-B1-4",
+        "cell-B2-4", "cell-B3-4", "cell-B4-4",
+        "cell-B4-3", "cell-B4-2", "cell-B4-1",
+        "cell-B3-1", "cell-B2-1"
+    ];
+    
+    const filledCellsC = [
+        "cell-C1-1", "cell-C1-2", "cell-C1-3", "cell-C1-4",
+        "cell-C2-4", "cell-C3-4", "cell-C4-4",
+        "cell-C4-3", "cell-C4-2", "cell-C4-1",
+        "cell-C3-1", "cell-C2-1"
+    ];
+    
+    const filledCellsD = [
+        "cell-D1-1", "cell-D1-2", "cell-D1-3", "cell-D1-4",
+        "cell-D2-4", "cell-D3-4", "cell-D4-4",
+        "cell-D4-3", "cell-D4-2", "cell-D4-1",
+        "cell-D3-1", "cell-D2-1"
+    ];
+    
+    const filledCellsE = [
+        "cell-E1-1", "cell-E1-2", "cell-E1-3", "cell-E1-4",
+        "cell-E2-4", "cell-E3-4", "cell-E4-4",
+        "cell-E4-3", "cell-E4-2", "cell-E4-1",
+        "cell-E3-1", "cell-E2-1"
+    ];
+
+    function rotateLettersA() {
+        const temp = document.getElementById(filledCellsA[filledCellsA.length - 1]).innerText;
+        for (let i = filledCellsA.length - 1; i > 0; i--) {
+            document.getElementById(filledCellsA[i]).innerText = document.getElementById(filledCellsA[i - 1]).innerText;
+        }
+        document.getElementById(filledCellsA[0]).innerText = temp;
+    }
+
+    function rotateLettersB() {
+        const temp = document.getElementById(filledCellsB[filledCellsB.length - 1]).innerText;
+        for (let i = filledCellsB.length - 1; i > 0; i--) {
+            document.getElementById(filledCellsB[i]).innerText = document.getElementById(filledCellsB[i - 1]).innerText;
+        }
+        document.getElementById(filledCellsB[0]).innerText = temp;
+    }
+    
+    function rotateLettersC() {
+        const temp = document.getElementById(filledCellsC[filledCellsC.length - 1]).innerText;
+        for (let i = filledCellsC.length - 1; i > 0; i--) {
+            document.getElementById(filledCellsC[i]).innerText = document.getElementById(filledCellsC[i - 1]).innerText;
+        }
+        document.getElementById(filledCellsC[0]).innerText = temp;
+    }
+    
+    function rotateLettersD() {
+        const temp = document.getElementById(filledCellsD[filledCellsD.length - 1]).innerText;
+        for (let i = filledCellsD.length - 1; i > 0; i--) {
+            document.getElementById(filledCellsD[i]).innerText = document.getElementById(filledCellsD[i - 1]).innerText;
+        }
+        document.getElementById(filledCellsD[0]).innerText = temp;
+    }
+    
+    function rotateLettersE() {
+        const temp = document.getElementById(filledCellsE[filledCellsE.length - 1]).innerText;
+        for (let i = filledCellsE.length - 1; i > 0; i--) {
+            document.getElementById(filledCellsE[i]).innerText = document.getElementById(filledCellsE[i - 1]).innerText;
+        }
+        document.getElementById(filledCellsE[0]).innerText = temp;
+    }
+
+    function startAnimation() {
+        intervalA = setInterval(rotateLettersA, 900);
+        intervalB = setInterval(rotateLettersB, 800);
+        intervalC = setInterval(rotateLettersC, 700);
+        intervalD = setInterval(rotateLettersD, 600);
+        intervalE = setInterval(rotateLettersE, 500);
+    }
+
+    function stopAnimation() {
+        clearInterval(intervalA);
+        clearInterval(intervalB);
+        clearInterval(intervalC);
+        clearInterval(intervalD);
+        clearInterval(intervalE);
+    }
+
+    function checkIfAtStart() {
+        const isAtStartA = document.getElementById(filledCellsA[0]).innerText === "p";
+        const isAtStartB = document.getElementById(filledCellsB[0]).innerText === "p";
+        const isAtStartC = document.getElementById(filledCellsC[0]).innerText === "";
+        const isAtStartD = document.getElementById(filledCellsD[0]).innerText === "p";
+        const isAtStartE = document.getElementById(filledCellsE[0]).innerText === "p";
+
+        return isAtStartA && isAtStartB && isAtStartC && isAtStartD && isAtStartE;
+    }
+
+    function toggleAnimation() {
+        if (isRunning) {
+            stopAnimation();
+            document.getElementById("toggleButton").innerText = "Start";
+            if (checkIfAtStart()) {
+                showModal();
+            }
+        } else {
+            startAnimation();
+            document.getElementById("toggleButton").innerText = "Stop";
+        }
+        isRunning = !isRunning;
+    }
+
+    function showModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+   
+    function showInfoModal() {
+        document.getElementById('infoModal').style.display = 'block';
+        document.getElementById('modalBackdrop').style.display = 'block';
+    }
+
+    function closeInfoModal() {
+        document.getElementById('infoModal').style.display = 'none';
+        document.getElementById('modalBackdrop').style.display = 'none';
+    }
+
+    startAnimation();
+</script>
+</body>
+</html>
